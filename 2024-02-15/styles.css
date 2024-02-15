@@ -1,0 +1,51 @@
+/* Esta maravillosa hoja de estilos 
+   funcionará algun día */
+
+body {
+   --color-primary: yellow;
+   --color-primary-muted: grey;
+}
+
+em {
+  color: red;
+}
+em,
+strong,
+span {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+code {
+  background-color: lightgray;
+}
+pre, code {
+   color: var(--color-primary);
+}
+span {
+  border: 1px solid red;
+}
+pre {
+  background-color: rgb(208, 231, 208);
+  border: 2px solid black;
+  padding: 0.5em;
+}
+a {
+  text-decoration: none;
+}
+body {
+  font-family: "Inter", "Open Sans", sans-serif;
+}
+header nav a {
+  font-family: sans-serif;
+  font-weight: bold;
+  padding: 1em;
+  border: 1px solid gray;
+  background-color: var(--color-primary);
+}
+h1, h6 {
+   padding: 1em;
+   border: 2px solid red;
+}
+h1 {
+   color: rgb(136, 117, 20);
+}
