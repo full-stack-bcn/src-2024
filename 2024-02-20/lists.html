@@ -11,20 +11,43 @@
       table tr td {
         border: 1px solid gray;
         padding: 0.2em 0.3em;
-        background-color: salmon;
+        /* background-color: salmon; */
       }
       table {
         border-collapse: collapse;
+      }
+      #title {
+        font-family: sans-serif;
+        padding: 0;
+        margin: 0;
+        border: 5px dotted red;
+      }
+      ol .featured {
+        background-color: rgba(255, 166, 0, 0.289);
+      }
+      .important {
+        font-family: sans-serif;
+      }
+      .first {
+        background-color: lightblue;
+      }
+      .special {
+        outline: 4px solid black;
+        outline-offset: 4px;
+      }
+      section.important ol li.important {
+        background-color: green;
       }
     </style>
   </head>
   <body>
     <main>
-      <section>
+      <h1 id="title">Demo</h1>
+      <section class="important">
         <h2>Listas</h2>
-        <ol type="1">
+        <ol type="1" class="featured">
           <li>Primero</li>
-          <li>Segundo</li>
+          <li class="important">Segundo</li>
           <li>Tercero</li>
         </ol>
         <p>Intermedio</p>
@@ -34,7 +57,7 @@
           <li value="31">No sé</li>
           <li>
             La sublista es:
-            <ul>
+            <ul class="featured">
               <li>alpha</li>
               <li>beta</li>
               <li>gamme</li>
@@ -60,7 +83,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr class="first">
               <td>Pepito</td>
               <td>García</td>
             </tr>
@@ -73,7 +96,7 @@
             </tr>
             <tr>
               <td rowspan="2">A</td>
-              <td>B</td>
+              <td class="special">B</td>
             </tr>
             <tr>
               <td>C</td>

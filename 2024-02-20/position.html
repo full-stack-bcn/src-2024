@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Demo Posicionado</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 2em;
+        height: 200vh;
+      }
+      p {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      style="
+        height: 3em;
+        background-color: red;
+        position: sticky;
+        top: 0;
+      "
+    ></div>
+    <div
+      style="
+        height: 6em;
+        background-color: green;
+        padding: 0.5em;
+      "
+    >
+      <p>Quis dolor exercitation adipisicing.</p>
+      <div
+        style="
+          font-size: 1.6rem;
+          background-color: pink;
+          border: 1px solid yellow;
+          width: 0.8em;
+          height: 0.8em;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          position: fixed;
+          top: 0.2em;
+          left: 0.2em;
+        "
+        title="Close the Window"
+      >
+        &times;
+      </div>
+      <p>hola que tal</p>
+    </div>
+    <div style="height: 1em; background-color: blue"></div>
+  </body>
+</html>
