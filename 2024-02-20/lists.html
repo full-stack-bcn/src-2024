@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Listas</title>
+    <style>
+      table tr td {
+        border: 1px solid gray;
+        padding: 0.2em 0.3em;
+        background-color: salmon;
+      }
+      table {
+        border-collapse: collapse;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <h2>Listas</h2>
+        <ol type="1">
+          <li>Primero</li>
+          <li>Segundo</li>
+          <li>Tercero</li>
+        </ol>
+        <p>Intermedio</p>
+        <ol start="4">
+          <li>Cuarto</li>
+          <li>Quinto</li>
+          <li value="31">No sé</li>
+          <li>
+            La sublista es:
+            <ul>
+              <li>alpha</li>
+              <li>beta</li>
+              <li>gamme</li>
+              <li>delta</li>
+            </ul>
+          </li>
+        </ol>
+
+        <ul>
+          <li>alpha</li>
+          <li>beta</li>
+          <li>gamme</li>
+          <li>delta</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Tablas</h2>
+        <table style="border: 1px solid black">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Apellido</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Pepito</td>
+              <td>García</td>
+            </tr>
+            <tr>
+              <td>John</td>
+              <td>Doe</td>
+            </tr>
+            <tr>
+              <td colspan="2">Chiquito</td>
+            </tr>
+            <tr>
+              <td rowspan="2">A</td>
+              <td>B</td>
+            </tr>
+            <tr>
+              <td>C</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </body>
+</html>
