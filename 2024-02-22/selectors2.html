@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Selectors 2</title>
+    <style>
+      :root {
+        --color-texto: black;
+        --color-titulos: rgb(233, 39, 39);
+      }
+      body {
+        color: var(--color-texto);
+      }
+      p.note {
+        background-color: grey;
+        padding: 0.5em;
+      }
+      p .note {
+        /* border: 2px solid yellow; */
+        border-width: 2px;
+        border-style: solid;
+        border-color: yellow;
+      }
+      .vertical {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3em;
+      }
+      p[contenteditable] {
+        border: 2px dotted orange;
+      }
+      input[type="text"] {
+        padding: 0.5em 0.7em;
+      }
+      input[type="button"] {
+        background-color: lightblue;
+      }
+      a[href^="https://www.upc.edu"]
+      {
+        color: red;
+      }
+      a[href^="#"] {
+        text-decoration: overline;
+      }
+      h1,
+      h2,
+      h3 {
+        margin-bottom: 0;
+        color: var(--color-titulos);
+      }
+      p {
+        margin-top: 2em;
+        margin-bottom: 0.8em;
+      }
+      h2 + p {
+        margin-top: 2em;
+      }
+      p {
+        margin-top: 0.2em;
+      }
+      section {
+        --color-texto: blue;
+      }
+      section > h2 {
+        border-bottom: 1px solid gray;
+      }
+      ul > li:first-child {
+        font-size: 1.2em;
+      }
+      ul > li:last-child {
+        font-size: 0.8em;
+      }
+      ul > li:nth-child(3) {
+        color: violet;
+      }
+      ul > li:nth-child(2n + 1) {
+        text-decoration: line-through;
+      }
+      .clickable {
+        outline: 1px solid blue;
+      }
+      .clickable:hover {
+        outline-color: lightblue;
+        cursor: pointer;
+      }
+      span.clickable::before {
+        content: "**";
+      }
+      span.clickable::after {
+        content: "%%";
+      }
+      p::first-letter {
+        font-size: 3em;
+        color: var(--color-titulos);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <a href="#section2">Go to section 2</a>
+        <h2>Combined selectors</h2>
+        <div>
+          <h2>Prueba de consezto</h2>
+        </div>
+        <p class="warning" contenteditable>
+          Ipsum occaecat do proident eu ex dolor commodo
+          deserunt ipsum irure nulla enim exercitation.
+        </p>
+        <p class="note">
+          Nisi aliqua eiusmod
+          <span class="note">quis</span> dolor mollit
+          incididunt anim ea aliqua.
+        </p>
+        <div class="vertical">
+          <input type="text" />
+          <input type="button" value="Click me" />
+          <input type="color" />
+        </div>
+        <div class="vertical">
+          <a href="https://www.upc.edu/personal"
+            >UPC Personal</a
+          >
+          <a href="https://www.upc.edu/graus">UPC Graus</a>
+          <a href="https://amazon.es">Amazon</a>
+        </div>
+      </section>
+      <section id="section2">
+        <h2>Section 2</h2>
+        <p>
+          Culpa magna aute elit fugiat nulla irure pariatur
+          culpa sunt exercitation elit. Nostrud voluptate
+          mollit magna id sint commodo et ut tempor ex elit
+          consectetur deserunt. Laborum sint sunt culpa
+          officia.
+        </p>
+        <p>
+          In incididunt mollit irure ad id id. Veniam magna
+          nisi officia exercitation tempor ea ea ut ad sit.
+          Excepteur anim nulla deserunt laborum officia nisi
+          et velit eu aute ex commodo.
+        </p>
+        <p>
+          Dolore ex excepteur mollit excepteur eu duis ut
+          magna officia adipisicing exercitation. Laborum
+          nisi sunt aliquip duis anim aliquip sint ad anim
+          commodo duis irure deserunt labore. Laborum veniam
+          qui ullamco reprehenderit duis magna laborum id.
+          Voluptate ad dolor aute pariatur nostrud sunt
+          cillum cupidatat. Enim sunt deserunt nisi tempor
+          ipsum ea eiusmod aliquip dolor excepteur et
+          <span class="clickable">proident</span>.
+        </p>
+        <ul>
+          <li>First</li>
+          <li>Second</li>
+          <li>Third</li>
+          <li>Fourth</li>
+          <li>Fifth</li>
+          <li>Sixth</li>
+          <li>Seventh</li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>
