@@ -1,0 +1,23 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+h1 {
+  margin-bottom: 0;
+}
+#todo-list {
+  margin-top: .5em;
+  margin-bottom: .5em;
+}
+.todo-item {
+  padding: .2em 0;
+  cursor: pointer;
+  user-select: none;
+}
+.todo-item.done {
+  text-decoration: line-through;
+}
+.todo-item input[type="checkbox"] {
+  margin-right: .8em;
+}
