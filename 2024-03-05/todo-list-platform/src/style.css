@@ -1,0 +1,51 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+h1 {
+  margin-bottom: .4em;
+}
+#todos {
+  margin-top: 1em;
+}
+.todo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: .4em .25em;
+  margin-bottom: .1em;
+  cursor: pointer;
+  user-select: none;
+  max-width: 20em;
+}
+.todo.done .what  {
+  text-decoration: line-through;
+}
+.todo input[type="checkbox"] {
+  margin-right: .8em;
+}
+.todo .spacer {
+  flex: 1;
+}
+.todo .remove {
+  display: none;
+}
+.todo:hover .remove {
+  display: flex;
+}
+.todo .remove {
+  width: 1.2em;
+  height: 1.2em;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  color: gray;
+}
+.todo .remove:hover {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+}
+#buttons {
+  margin-top: 1em;
+}
