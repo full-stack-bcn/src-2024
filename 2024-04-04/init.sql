@@ -1,0 +1,11 @@
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users (
+  id SERIAL NOT NULL,
+  first_name VARCHAR(100) NOT NULL,
+  last_name VARCHAR(100) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  birthday DATE NOT NULL,
+  age SMALLINT NOT NULL,
+  bio TEXT NOT NULL
+);
