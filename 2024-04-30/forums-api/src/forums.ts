@@ -21,7 +21,7 @@ const forumBodySchema = z.object({
   name: z.string().min(5).max(200),
 });
 
-router.get("/", async (req, res) => {
+router.get("/", async (req, res, next) => {
   try {
     const forums = await db.forum.findMany({
       orderBy: { createdAt: "asc" },
@@ -29,34 +29,31 @@ router.get("/", async (req, res) => {
     });
     send(res).ok(forums);
   } catch (e) {
-    send(res).internalError(`Could not get forums.`);
+    next(e);
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", async (req, res, next) => {
   try {
     const { id: forumId } = idParamSchema.parse(req.params);
     const forum = await db.forum.findUniqueOrThrow({ where: { forumId } });
     send(res).ok(forum);
   } catch (e: any) {
-    if (e.name === "NotFoundError") {
-      return send(res).notFound();
-    }
-    send(res).internalError(`Internal error`);
+    next(e);
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", async (req, res, next) => {
   try {
     const data = forumBodySchema.parse(req.body);
     const forum = await db.forum.create({ data });
     send(res).createOk(forum);
   } catch (e) {
-    send(res).internalError(`Couldn't create forum.`);
+    next(e);
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", async (req, res, next) => {
   try {
     // 1. Obtener los datos entrada:
     //    - Parámetros (/abc/:x/def/:y)
@@ -80,7 +77,9 @@ router.put("/:id", async (req, res) => {
     //    - Ocultar campos que no queremos mostrar
     //    - Devolver en un formato estándar.
     send(res).ok(updatedForum);
-  } catch (e) {}
+  } catch (e) {
+    next(e);
+  }
 });
 
 export default router;
