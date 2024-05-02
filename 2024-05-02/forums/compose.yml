@@ -1,0 +1,9 @@
+services:
+  api:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - $PORT:$PORT
+    volumes:
+      - ./db:/home/bun/app/db
