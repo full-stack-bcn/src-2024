@@ -1,12 +1,17 @@
 import type { Product } from "./ProductList";
 
 type ProductComponentProps = {
-    product: Product;
-}
+  product: Product;
+};
 
 export default function ProductComponent({ product }: ProductComponentProps) {
-  return <div>
-    <h3>{product.title} [{product.id}]</h3>
-    <div>{product.description}</div>
-  </div>;
+  const { title, description, id } = product;
+  return (
+    <div>
+      <h3>
+        {title} [{id}]
+      </h3>
+      <div>{description}</div>
+    </div>
+  );
 }
