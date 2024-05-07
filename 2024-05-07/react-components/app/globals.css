@@ -1,0 +1,7 @@
+.red-box {
+  background-color: rgb(203, 10, 10);
+  padding: 1em;
+}
+.red-box + .red-box {
+  margin-top: 1em;
+}
