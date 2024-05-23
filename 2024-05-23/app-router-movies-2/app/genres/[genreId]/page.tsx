@@ -1,3 +1,4 @@
+import MovieCard from "@/components/MovieCard";
 import { Movie, getAllMovies, getMoviesWithGenre } from "@/lib/movies";
 import { notFound } from "next/navigation";
 
@@ -21,9 +22,9 @@ export default async function Page({ params }: PageProps) {
     movies = await getMoviesWithGenre([genreNum]);
   }
   return (
-    <main className="p-6">
+    <main className="p-6 flex flex-wrap gap-2">
       {movies.map((movie) => (
-        <div key={movie.id}>{movie.title}</div>
+        <MovieCard key={movie.id} movie={movie} />
       ))}
     </main>
   );
