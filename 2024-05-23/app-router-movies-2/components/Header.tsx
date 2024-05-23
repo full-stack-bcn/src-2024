@@ -26,6 +26,9 @@ export default function Header() {
       >
         Genres
       </Button>
+      <Link href="/search" className="text-white">
+        Search
+      </Link>
     </header>
   );
 }

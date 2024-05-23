@@ -11,6 +11,7 @@ const tmdbFetch = async (path: string) => {
       Authorization: `Bearer ${process.env.TMDB_TOKEN}`,
     },
   };
+  console.log(options);
   const response = await fetch(`https://api.themoviedb.org/3${path}`, options);
   return await response.json();
 };
@@ -46,3 +47,23 @@ export const getAllMovies = async () => {
 
 export const getPosterURL = (movie: Movie) =>
   `https://image.tmdb.org/t/p/w154${movie.poster_path}`;
+
+export const serverSearchMovies = async (search: string) => {
+  const { results } = await tmdbFetch(`/search/movie?query=${search}`);
+  const movies = results.map((res: any) => ({
+    ...res,
+    release_date: new Date(res.release_date),
+  }));
+  return movies as Movie[];
+};
+
+export const clientSearchMovies = async (search: string) => {
+  const response = await fetch(`/api/movies/search?query=${search}`);
+  const results = await response.json();
+  const movies = results.map((res: any) => ({
+    ...res,
+    release_date: new Date(res.release_date),
+  }));
+  return movies as Movie[];
+}
+
