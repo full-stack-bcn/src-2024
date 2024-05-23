@@ -1,5 +1,10 @@
 import MovieCard from "@/components/MovieCard";
-import { Movie, getAllMovies, getMoviesWithGenre } from "@/lib/movies";
+import {
+  Movie,
+  getAllMovies,
+  getMovieGenres,
+  getMoviesWithGenre,
+} from "@/lib/movies";
 import { notFound } from "next/navigation";
 
 type PageProps = {
@@ -13,6 +18,7 @@ export default async function Page({ params }: PageProps) {
   let movies: Movie[] = [];
 
   if (genreId === "all") {
+    // throw new Error(`Because I can`);
     movies = await getAllMovies();
   } else {
     const genreNum = Number(genreId);
@@ -28,4 +34,9 @@ export default async function Page({ params }: PageProps) {
       ))}
     </main>
   );
+}
+
+export async function generateStaticParams() {
+  const genres = await getMovieGenres();
+  return genres.map((genre) => ({ genreId: String(genre.id) }));
 }

@@ -27,7 +27,10 @@ export type Movie = {
   poster_path: string;
 };
 
+const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
 export const getMoviesWithGenre = async (genreIds: number[]) => {
+  await sleep(1500);
   const genres = genreIds.map(String).join(",");
   const { results } = await tmdbFetch(`/discover/movie?with_genres=${genres}`);
   const movies = results.map((res: any) => ({
