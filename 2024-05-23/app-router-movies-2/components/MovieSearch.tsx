@@ -3,6 +3,7 @@
 import { Movie, clientSearchMovies } from "@/lib/movies";
 import { useEffect, useState } from "react";
 import MovieCard from "@/components/MovieCard";
+import { actionSearchMovies } from "@/actions/search-movies";
 
 type MovieSearchProps = {
   search: string;
@@ -11,7 +12,7 @@ export default function MovieSearch({ search }: MovieSearchProps) {
   const [movieResults, setMovieResults] = useState<Movie[] | null>(null);
 
   useEffect(() => {
-    clientSearchMovies(search).then(setMovieResults);
+    actionSearchMovies(search).then(setMovieResults);
     setMovieResults(null);
   }, [search]);
 

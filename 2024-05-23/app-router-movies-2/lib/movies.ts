@@ -11,7 +11,6 @@ const tmdbFetch = async (path: string) => {
       Authorization: `Bearer ${process.env.TMDB_TOKEN}`,
     },
   };
-  console.log(options);
   const response = await fetch(`https://api.themoviedb.org/3${path}`, options);
   return await response.json();
 };
