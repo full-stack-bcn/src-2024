@@ -4,9 +4,9 @@ import { actionLogin } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
-export default function Home() {
+function LoginPage() {
   const params = useSearchParams();
   const [message, setMessage] = useState("");
   const [passwdVisible, setPasswdVisible] = useState(false);
@@ -43,5 +43,13 @@ export default function Home() {
         Ojito
       </Button>
     </main>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense>
+      <LoginPage />
+    </Suspense>
   );
 }
