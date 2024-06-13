@@ -1,0 +1,81 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "cockroachdb"
+  url      = env("DATABASE_URL")
+}
+
+enum Difficulty {
+  easy
+  medium
+  expert
+}
+
+model Recipes {
+  id          String     @id @default(uuid())
+  title       String
+  description String?
+  createdAt   DateTime   @default(now())
+  difficulty  Difficulty
+  prepMinutes Int
+  tags        String[]
+  private     Boolean    @default(true)
+
+  ingredients IngredientRecipe[]
+  users       RecipeUser[]
+}
+
+enum Units {
+  grams
+  kilograms
+  millilitres
+  litres
+  dimensionless
+}
+
+model Ingredients {
+  id    Int    @id @default(sequence())
+  name  String
+  units Units
+
+  recipes IngredientRecipe[]
+}
+
+model Users {
+  id             String   @id @default(uuid())
+  username       String   @unique
+  hashedPassword String
+  fullname       String?
+  createdAt      DateTime @default(now())
+
+  recipes RecipeUser[]
+}
+
+model IngredientRecipe {
+  amount        Float
+  recipes       Recipes     @relation(fields: [recipesId], references: [id])
+  recipesId     String
+  ingredients   Ingredients @relation(fields: [ingredientsId], references: [id])
+  ingredientsId Int
+
+  @@id([recipesId, ingredientsId])
+}
+
+enum Role {
+  owner
+  editor
+  viewer
+}
+
+model RecipeUser {
+  role      Role
+  users     Users   @relation(fields: [usersId], references: [id])
+  usersId   String
+  recipes   Recipes @relation(fields: [recipesId], references: [id])
+  recipesId String
+
+  @@id([usersId, recipesId])
+}
