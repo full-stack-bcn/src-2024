@@ -1,3 +1,4 @@
+import Header from "@/components/Header";
 import React from "react";
 
 type LayoutProps = {
@@ -6,7 +7,7 @@ type LayoutProps = {
 export default function Layout({ children }: LayoutProps) {
   return (
     <>
-      <header className="bg-blue-600 text-white">Kook</header>
+      <Header />
       {children}
     </>
   );
