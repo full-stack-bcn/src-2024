@@ -1,3 +1,5 @@
+#!/usr/bin/env bun
+
 import { db } from "@/db/db";
 import * as bcrypt from "bcryptjs";
 

@@ -1,6 +1,9 @@
-
 generator client {
   provider = "prisma-client-js"
+}
+
+generator zod {
+  provider = "zod-prisma-types"
 }
 
 datasource db {
@@ -24,7 +27,7 @@ model Recipes {
   tags        String[]
   private     Boolean    @default(true)
 
-  ingredients IngredientRecipe[]
+  ingredients RecipeIngredient[]
   users       RecipeUser[]
 }
 
@@ -38,10 +41,10 @@ enum Units {
 
 model Ingredients {
   id    Int    @id @default(sequence())
-  name  String
+  name  String @unique
   units Units
 
-  recipes IngredientRecipe[]
+  recipes RecipeIngredient[]
 }
 
 model Users {
@@ -54,9 +57,9 @@ model Users {
   recipes RecipeUser[]
 }
 
-model IngredientRecipe {
+model RecipeIngredient {
   amount        Float
-  recipes       Recipes     @relation(fields: [recipesId], references: [id])
+  recipes       Recipes     @relation(fields: [recipesId], references: [id], onDelete: Cascade)
   recipesId     String
   ingredients   Ingredients @relation(fields: [ingredientsId], references: [id])
   ingredientsId Int
@@ -74,7 +77,7 @@ model RecipeUser {
   role      Role
   users     Users   @relation(fields: [usersId], references: [id])
   usersId   String
-  recipes   Recipes @relation(fields: [recipesId], references: [id])
+  recipes   Recipes @relation(fields: [recipesId], references: [id], onDelete: Cascade)
   recipesId String
 
   @@id([usersId, recipesId])

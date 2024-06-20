@@ -1,3 +1,5 @@
+#!/usr/bin/env bun
+
 import { base64url } from "jose";
 
 const randByte = () => Math.floor(256*Math.random());

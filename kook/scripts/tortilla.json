@@ -1,0 +1,27 @@
+{
+  "recipe": {
+    "title": "Tortilla de Patatas",
+    "description": "Tortilla española con o sin cebolla",
+    "difficulty": "medium",
+    "prepMinutes": 90,
+    "tags": ["huevos", "snack"],
+    "private": true
+  },
+  "ingredients": [
+    {
+      "amount": 5,
+      "name": "Huevos",
+      "units": "dimensionless"
+    },
+    {
+      "amount": 0.6,
+      "name": "Patatas",
+      "units": "kilograms"
+    },
+    {
+      "amount": 0.1,
+      "name": "Aceite",
+      "units": "millilitres"
+    }
+  ]
+}
