@@ -1,57 +1,21 @@
 #!/usr/bin/env bun
 
-import {
-  RecipesCreateInputSchema,
-  RecipeIngredientCreateInputSchema,
-} from "@/prisma/generated/zod";
-
 import { db } from "@/db/db";
-import { z } from "zod";
+import { dbGetRecipeById, dbInsertRecipeFromJson } from "@/lib/db/recipes";
 
-const [jsonFilename] = process.argv.slice(2);
-if (!jsonFilename) {
-  console.error(`Usage: create-user.ts <jsonFilename>`);
+const [jsonFilename, username] = process.argv.slice(2);
+if (!jsonFilename || !username) {
+  console.error(`Usage: create-user.ts <jsonFilename> <username>`);
+  process.exit(1);
+}
+const user = await db.users.findUnique({ where: { username } });
+if (user === null) {
+  console.error(`Username "${username}" not found.`);
   process.exit(1);
 }
 
-const json = await Bun.file("tortilla.json").json();
-const checkedRecipe = RecipesCreateInputSchema.parse(json.recipe);
-
-const newRecipe = await db.recipes.create({ data: checkedRecipe });
-console.log(newRecipe);
-
-const ingredientsInputs = z.array(RecipeIngredientCreateInputSchema).parse(
-  json.ingredients.map(({ amount, name, units }: any) => ({
-    amount,
-    ingredients: {
-      connectOrCreate: {
-        where: { name },
-        create: { name, units },
-      },
-    },
-    recipes: {
-      connect: { id: newRecipe.id },
-    },
-  }))
-);
-
-for (const ingrInput of ingredientsInputs) {
-  const newIngr = await db.recipeIngredient.create({ data: ingrInput });
-  console.log(newIngr);
-}
-
-// Query it already
-
-const recipe = await db.recipes.findUnique({
-  where: { id: newRecipe.id },
-  include: {
-    ingredients: {
-      // RecipeIngredient
-      include: {
-        ingredients: true,
-      },
-    },
-  },
-});
+const json = await Bun.file(jsonFilename).json();
+const newRecipe = await dbInsertRecipeFromJson(json, user.id);
+const recipe = await dbGetRecipeById(newRecipe.id);
 
 console.log(recipe);
