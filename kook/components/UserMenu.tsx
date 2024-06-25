@@ -10,12 +10,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { Users } from "@prisma/client";
+import { useLoggedInUser } from "./UserProvider";
 
-type UserMenuProps = {
-  user: Users;
-};
-export default function UserMenu({ user }: UserMenuProps) {
+export default function UserMenu() {
+  const user = useLoggedInUser();
+  if (user === null) {
+    return <></>
+  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>{user.username}</DropdownMenuTrigger>
