@@ -17,7 +17,7 @@ enum Difficulty {
   expert
 }
 
-model Recipes {
+model Recipe {
   id          String     @id @default(uuid())
   title       String
   description String?
@@ -31,7 +31,7 @@ model Recipes {
   users       RecipeUser[]
 }
 
-enum Units {
+enum Unit {
   grams
   kilograms
   millilitres
@@ -39,15 +39,15 @@ enum Units {
   dimensionless
 }
 
-model Ingredients {
+model Ingredient {
   id    Int    @id @default(sequence())
   name  String @unique
-  units Units
+  units Unit
 
   recipes RecipeIngredient[]
 }
 
-model Users {
+model User {
   id             String   @id @default(uuid())
   username       String   @unique
   hashedPassword String
@@ -58,13 +58,13 @@ model Users {
 }
 
 model RecipeIngredient {
-  amount        Float
-  recipes       Recipes     @relation(fields: [recipesId], references: [id], onDelete: Cascade)
-  recipesId     String
-  ingredients   Ingredients @relation(fields: [ingredientsId], references: [id])
-  ingredientsId Int
+  amount       Float
+  recipe       Recipe     @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  recipeId     String
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  ingredientId Int
 
-  @@id([recipesId, ingredientsId])
+  @@id([recipeId, ingredientId])
 }
 
 enum Role {
@@ -74,11 +74,11 @@ enum Role {
 }
 
 model RecipeUser {
-  role      Role
-  users     Users   @relation(fields: [usersId], references: [id])
-  usersId   String
-  recipes   Recipes @relation(fields: [recipesId], references: [id], onDelete: Cascade)
-  recipesId String
+  role     Role
+  user     User   @relation(fields: [userId], references: [id])
+  userId   String
+  recipe   Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  recipeId String
 
-  @@id([usersId, recipesId])
+  @@id([userId, recipeId])
 }
