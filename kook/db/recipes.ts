@@ -56,3 +56,25 @@ export const dbGetRecipeById = async (recipeId: string) => {
     },
   });
 };
+
+export const dbGetUserRecipes = async (userId: string) => {
+  const result = await db.user.findUnique({
+    where: { id: userId },
+    include: {
+      recipes: {
+        include: {
+          recipe: true,
+        },
+      },
+    },
+  });
+  if (result === null) {
+    throw new Error(`User not found`);
+  }
+
+  const { recipes: userRecipes } = result;
+  return userRecipes.map((userRecipe) => ({
+    role: userRecipe.role,
+    ...userRecipe.recipe,
+  }));
+};
