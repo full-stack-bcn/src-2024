@@ -11,17 +11,17 @@
     {
       "amount": 5,
       "name": "Huevos",
-      "units": "dimensionless"
+      "unit": "dimensionless"
     },
     {
       "amount": 0.6,
       "name": "Patatas",
-      "units": "kilograms"
+      "unit": "kilogram"
     },
     {
       "amount": 0.1,
       "name": "Aceite",
-      "units": "millilitres"
+      "unit": "millilitre"
     }
   ]
 }

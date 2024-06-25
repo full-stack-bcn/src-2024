@@ -10,7 +10,7 @@ if (!username || !password) {
 }
 
 const salt = await bcrypt.genSalt();
-const newUser = await db.users.create({
+const newUser = await db.user.create({
   data: {
     username,
     hashedPassword: await bcrypt.hash(password, salt),

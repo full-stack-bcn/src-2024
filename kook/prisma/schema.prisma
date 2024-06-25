@@ -32,17 +32,17 @@ model Recipe {
 }
 
 enum Unit {
-  grams
-  kilograms
-  millilitres
-  litres
+  gram
+  kilogram
+  millilitre
+  litre
   dimensionless
 }
 
 model Ingredient {
-  id    Int    @id @default(sequence())
-  name  String @unique
-  units Unit
+  id   Int    @id @default(sequence())
+  name String @unique
+  unit Unit
 
   recipes RecipeIngredient[]
 }
