@@ -1,36 +1,36 @@
 import {
   RecipeIngredientCreateInputSchema,
-  RecipesCreateInputSchema,
+  RecipeCreateInputSchema,
 } from "@/prisma/generated/zod";
 
 import { db } from "@/db/db";
 import { z } from "zod";
 
 export const dbInsertRecipeFromJson = async (json: any, userId: string) => {
-  const checkedRecipe = RecipesCreateInputSchema.parse({
+  const checkedRecipe = RecipeCreateInputSchema.parse({
     ...json.recipe,
     users: {
       create: [
         {
           role: "owner",
-          users: { connect: { id: userId } },
+          user: { connect: { id: userId } },
         },
       ],
     },
   });
 
-  const newRecipe = await db.recipes.create({ data: checkedRecipe });
+  const newRecipe = await db.recipe.create({ data: checkedRecipe });
 
   const ingredientsInputs = z.array(RecipeIngredientCreateInputSchema).parse(
-    json.ingredients.map(({ amount, name, units }: any) => ({
+    json.ingredients.map(({ amount, name, unit }: any) => ({
       amount,
-      ingredients: {
+      ingredient: {
         connectOrCreate: {
           where: { name },
-          create: { name, units },
+          create: { name, unit },
         },
       },
-      recipes: {
+      recipe: {
         connect: { id: newRecipe.id },
       },
     }))
@@ -44,14 +44,14 @@ export const dbInsertRecipeFromJson = async (json: any, userId: string) => {
 };
 
 export const dbGetRecipeById = async (recipeId: string) => {
-  return await db.recipes.findUnique({
+  return await db.recipe.findUnique({
     where: { id: recipeId },
     include: {
       ingredients: {
-        include: { ingredients: true },
+        include: { ingredient: true },
       },
       users: {
-        include: { users: true },
+        include: { user: true },
       },
     },
   });
