@@ -1,6 +1,12 @@
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { env } from "@/lib/env";
-import { readFile } from "fs/promises";
+import { extname } from "path";
+
+const mimeTypes: Record<string, string> = {
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+};
 
 class R2Client {
   s3client: S3Client;
@@ -19,14 +25,14 @@ class R2Client {
   }
 
   async uploadFile(filename: string, buffer: Buffer) {
+    const extension = extname(filename);
     await this.s3client.send(
       new PutObjectCommand({
         Bucket: this.bucket,
         Key: filename,
         Body: buffer,
         ACL: "public-read",
-        // FIXME(pauek): set the appropriate Content-Type
-        ContentType: "application/octet-stream", 
+        ContentType: mimeTypes[extension] || "application/octet-stream",
       })
     );
   }
@@ -36,6 +42,10 @@ class R2Client {
   }
 }
 
-const client = new R2Client({ bucket: "kook" });
-await client.uploadFile("abcde", await readFile("package.json"));
-client.destroy();
+export const r2client = new R2Client({
+  bucket: env("R2_BUCKET"),
+});
+
+// const client = new R2Client({ bucket: "kook" });
+// await client.uploadFile("abcde", await readFile("package.json"));
+// client.destroy();
