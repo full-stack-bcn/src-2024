@@ -3,6 +3,8 @@ import {
   RecipeCreateInputSchema,
 } from "@/prisma/generated/zod";
 
+import { Prisma } from "@prisma/client";
+
 import { db } from "@/db/db";
 import { z } from "zod";
 
@@ -78,3 +80,7 @@ export const dbGetUserRecipes = async (userId: string) => {
     ...userRecipe.recipe,
   }));
 };
+
+export const dbInsertRecipe = async (recipe: Prisma.RecipeCreateInput) => {
+  await db.recipe.create({ data: recipe });
+}

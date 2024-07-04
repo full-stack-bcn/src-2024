@@ -15,20 +15,30 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import { Input } from "@/components/ui/input";
 
 // https://pub-4ec32bd5aff94e2d932ecbe7482870c5.r2.dev
 
 import { RecipeCreateInputSchema } from "@/prisma/generated/zod";
 import { z } from "zod";
+import { actionInsertRecipe } from "@/actions/recipe";
 
-const formSchemaFull = RecipeCreateInputSchema;
+// const formSchemaFull = RecipeCreateInputSchema;
 
 const formSchema = z.object({
   title: z.string().min(2, {
     message: "Minimum title length is 2",
   }),
-  prepTime: z.number().min(1),
+  prepMinutes: z.number().min(1),
+  difficulty: z.enum(["easy", "medium", "expert"]),
 });
 
 type FormType = z.infer<typeof formSchema>;
@@ -41,12 +51,13 @@ export default function Page() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
-      prepTime: 1,
+      prepMinutes: 1,
+      difficulty: "",
     },
   });
 
   const submitRecipe = async (recipe: FormType) => {
-    console.log("The checked recipe is:", recipe);
+    await actionInsertRecipe(recipe);
   };
 
   const upload = async (formData: FormData) => {
@@ -79,7 +90,7 @@ export default function Page() {
           />
           <FormField
             control={form.control}
-            name="prepTime"
+            name="prepMinutes"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Preparation Time</FormLabel>
@@ -91,6 +102,29 @@ export default function Page() {
               </FormItem>
             )}
           />
+          <FormField
+            control={form.control}
+            name="difficulty"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Difficulty</FormLabel>
+                <FormControl>
+                  <Select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Difficulty..." />
+                    </SelectTrigger>
+                    <SelectContent {...field}>
+                      <SelectItem value="easy">Easy</SelectItem>
+                      <SelectItem value="medium">Medium</SelectItem>
+                      <SelectItem value="expert">Expert</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <Button type="submit">Add Recipe</Button>
         </form>
       </Form>
